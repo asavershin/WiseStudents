@@ -1,0 +1,81 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+    <changeSet id="createSchema-audit" author="asavershin">
+        <sql>
+            CREATE SCHEMA audit AUTHORIZATION postgres;
+        </sql>
+    </changeSet>
+
+    <changeSet id="create-revinfo-table" author="asavershin">
+        <createTable tableName="revinfo" schemaName="audit">
+            <column name="rev" type="integer" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="revinfo_pk"/>
+            </column>
+            <column name="revtstmp" type="bigint"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="createTable-audit.comments_jn_aud" author="asavershin">
+        <createTable tableName="comments_jn_aud" schemaName="audit">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="comment_jn_aud_pk"/>
+            </column>
+            <column name="rev" type="integer">
+                <constraints primaryKey="true"
+                             primaryKeyName="comment_jn_aut_pk"
+                             foreignKeyName="fr_comments_jn_aud_revinfo"
+                             references="audit.revinfo(rev)"
+                             nullable="false"
+                />
+            </column>
+            <column name="revtype" type="smallint"/>
+            <column name="created_at" type="timestamp"/>
+            <column name="is_anonymous" type="boolean"/>
+            <column name="text" type="varchar(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="create-files-comments-aud-table" author="asavershin">
+        <createTable tableName="files_comments_aud" schemaName="audit">
+            <column name="rev" type="integer">
+                <constraints primaryKey="true"
+                             primaryKeyName="files_comment_aud_pk"
+                             foreignKeyName="fk_files_comment_aud_revinfo"
+                             references="audit.revinfo(rev)"
+                             nullable="false"
+                />
+            </column>
+            <column name="comment_id" type="bigint">
+                <constraints primaryKey="true" primaryKeyName="files_comment_aud_pk"/>
+            </column>
+            <column name="file_id" type="bigint">
+                <constraints primaryKey="true" primaryKeyName="files_comment_aud_pk"/>
+            </column>
+            <column name="revtype" type="smallint"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="create-files-jn-aud-table" author="asavershin">
+        <createTable tableName="files_jn_aud" schemaName="audit">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true"
+                             primaryKeyName="files_jn_aud_pk"
+                />
+            </column>
+            <column name="rev" type="int">
+                <constraints primaryKey="true"
+                             primaryKeyName="files_jn_aud_pk"
+                             foreignKeyName="fk_files_jn_aud_revinfo"
+                             references="audit.revinfo(rev)"
+                             nullable="false"
+                />
+            </column>
+            <column name="revtype" type="smallint"/>
+            <column name="file" type="varchar(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="asavershin" id="create_revinfo_seq">
+        <createSequence sequenceName="revinfo_seq" incrementBy="50" minValue="1" maxValue="9223372036854775807" startValue="1" cacheSize="1" cycle="false"/>
+    </changeSet>
+</databaseChangeLog>

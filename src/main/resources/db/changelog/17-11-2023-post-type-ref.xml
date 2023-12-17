@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet id="Create table post_type_ref" author="asavershin">
+        <preConditions onFail="WARN">
+            <not>
+                <tableExists tableName="post_type_ref"/>
+            </not>
+        </preConditions>
+        <createTable tableName="post_type_ref">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="post_type_ref_pk"/>
+            </column>
+            <column name="name" type="varchar(50)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="Insert data into post_type_ref" author="asaversin">
+        <insert tableName="post_type_ref">
+            <column name="name" value="Контрольная работа"/>
+        </insert>
+
+        <insert tableName="post_type_ref">
+            <column name="name" value="Конспекты семинаров"/>
+        </insert>
+
+        <insert tableName="post_type_ref">
+            <column name="name" value="Литература"/>
+        </insert>
+
+        <insert tableName="post_type_ref">
+            <column name="name" value="Экзамен"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

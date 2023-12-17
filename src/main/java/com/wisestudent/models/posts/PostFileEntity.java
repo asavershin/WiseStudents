@@ -1,0 +1,29 @@
+package com.wisestudent.models.posts;
+
+import com.wisestudent.models.File;
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.util.HashSet;
+import java.util.Set;
+
+@Entity
+@Data
+@Table(name = "files_jn")
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class PostFileEntity implements File {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "files_jn_id_seq")
+    @SequenceGenerator(name = "files_jn_id_seq", sequenceName = "files_jn_id_seq", allocationSize = 1)
+    private Long id;
+
+    @Column(name = "file", nullable = false)
+    private String file;
+
+    @ManyToMany(mappedBy = "files", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Set<PostEntity> posts = new HashSet<>();
+}

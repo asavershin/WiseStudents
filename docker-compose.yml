@@ -1,0 +1,52 @@
+version: '3'
+
+services:
+  backend:
+    container_name: back
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .properties
+    ports:
+      - "8080:8080"
+    depends_on:
+      - database
+      - minio
+    environment:
+      - SERVER_PORT= 8080
+      - SPRING.DATASOURCE.URL=jdbc:postgresql://database/public
+
+  database:
+    image: postgres:15.1-alpine
+    container_name: db
+    env_file:
+      - .properties
+    ports:
+      - "5434:5432"
+    volumes:
+      - pgdbdata:/var/lib/postgresql/data/
+    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  minio:
+    image: minio/minio:latest
+    container_name: minio
+    env_file:
+      - .properties
+    command: server ~/minio --console-address :9090
+    ports:
+      - '9090:9090'
+      - '9000:9000'
+    volumes:
+      - minio-data:/minio
+
+volumes:
+  pgdbdata:
+    driver: local
+  minio-data:
+    driver: local

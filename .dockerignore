@@ -1,0 +1,23 @@
+# .dockerignore
+
+target/
+!target/*.jar
+
+*.iml
+.idea/
+
+src/test/
+
+*.lastUpdated
+maven-wrapper.properties
+
+*.log
+*.log.*
+*.tmp
+*.swp
+
+*.class
+
+.dockerignore
+.docker/
+.docker-compose.yml

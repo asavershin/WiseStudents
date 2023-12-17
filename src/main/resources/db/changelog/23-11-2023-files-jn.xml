@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet id="Create table files_jn" author="asavershin">
+        <preConditions onFail="WARN">
+            <not>
+                <tableExists tableName="files_jn"/>
+            </not>
+        </preConditions>
+        <createTable tableName="files_jn">
+
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="files_pk"/>
+            </column>
+
+            <column name="file" type="varchar">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create_table_files_posts" author="asavershin">
+        <createTable tableName="files_posts">
+
+            <column name="post_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_files_posts_post" references="posts_jn(id)" />
+            </column>
+
+            <column name="file_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_files_posts_file" references="files_jn(id)" />
+            </column>
+
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create_table_files_news" author="asavershin">
+        <createTable tableName="files_news">
+
+            <column name="news_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_files_news" references="news_jn(id)" />
+            </column>
+
+            <column name="file_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_files_news_file" references="files_jn(id)" />
+            </column>
+
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create_table_files_comments" author="asavershin">
+        <createTable tableName="files_comments">
+
+            <column name="comment_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_files_posts_comment" references="comments_jn(id)" />
+            </column>
+
+            <column name="file_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_files_posts_file" references="files_jn(id)" />
+            </column>
+
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet id="Create table posts_jn" author="asavershin">
+        <preConditions onFail="WARN">
+            <not>
+                <tableExists tableName="posts_jn"/>
+            </not>
+        </preConditions>
+        <createTable tableName="posts_jn">
+
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="post_jn_pk"/>
+            </column>
+
+            <column name="name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="year" type="integer">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="semester" type="integer">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="text" type="text">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="subject_id" type="bigint">
+                <constraints
+                        foreignKeyName="fk_post_subject"
+                        references="subjects_ref(id)"
+                        nullable="false"/>
+            </column>
+
+            <column name="post_type_id" type="bigint">
+                <constraints
+                        foreignKeyName="fk_post_post_type"
+                        references="post_type_ref(id)"
+                        nullable="false"/>
+            </column>
+
+            <column name="created_at" type="timestamp" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="user_id" type="bigint">
+                <constraints
+                        foreignKeyName="fk_post_user"
+                        references="users_jn(id)"
+                        nullable="false"/>
+            </column>
+
+        </createTable>
+    </changeSet>
+
+    <changeSet id="Create subject_id index for post" author="asavershin">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists tableName="posts_jn" indexName="idx_posts_jn_subject_id"/>
+            </not>
+        </preConditions>
+        <createIndex indexName="idx_posts_jn_subject_id" tableName="posts_jn" unique="false">
+            <column name="subject_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="Create user_id index for post" author="asavershin">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists tableName="posts_jn" indexName="idx_posts_jn_user_id"/>
+            </not>
+        </preConditions>
+        <createIndex indexName="idx_posts_jn_user_id" tableName="posts_jn" unique="false">
+            <column name="user_id"/>
+        </createIndex>
+    </changeSet>
+
+</databaseChangeLog>

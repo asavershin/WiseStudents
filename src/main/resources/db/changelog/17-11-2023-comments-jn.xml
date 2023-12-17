@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet id="Create table comments_jn" author="asavershin">
+        <preConditions onFail="WARN">
+            <not>
+                <tableExists tableName="posts_comments_jn"/>
+            </not>
+        </preConditions>
+        <createTable tableName="comments_jn">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="comment_pk"/>
+            </column>
+            <column name="is_anonymous" type="boolean" defaultValue="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="text" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="timestamp" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="bigint">
+                <constraints
+                        foreignKeyName="fk_comment_user"
+                        references="users_jn(id)"
+                        nullable="false"/>
+            </column>
+            <column name="parent_id" type="bigint">
+                <constraints
+                        foreignKeyName="fk_comment_parent"
+                        references="comments_jn(id)"
+                        nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
