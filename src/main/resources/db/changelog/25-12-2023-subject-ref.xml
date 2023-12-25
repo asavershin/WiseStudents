@@ -7,16 +7,30 @@
     <changeSet id="Create table subjects_ref" author="asavershin">
         <preConditions onFail="WARN">
             <not>
-                <tableExists tableName="subjects_ref"/>
+                <tableExists tableName="subject_ref"/>
             </not>
         </preConditions>
-        <createTable tableName="subjects_ref">
+        <createTable tableName="subject_ref">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="subject_ref_pk"/>
             </column>
             <column name="name" type="varchar(50)">
                 <constraints nullable="false" unique="true"/>
             </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create_table_subject_content" author="asavershin">
+        <createTable tableName="subject_content">
+
+            <column name="content_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_content_subject" references="content_jn(id)" />
+            </column>
+
+            <column name="subject_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_subject_content" references="subject_ref(id)" />
+            </column>
+
         </createTable>
     </changeSet>
 </databaseChangeLog>

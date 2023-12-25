@@ -5,33 +5,15 @@
                    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
 
-    <changeSet id="create_table_posts_comments" author="asavershin">
-        <createTable tableName="posts_comments">
+    <changeSet id="create_table_content_comments" author="asavershin">
+        <createTable tableName="content_comments">
 
-            <column name="post_id" type="bigint">
-                <constraints nullable="false" foreignKeyName="fk_posts_comments" references="posts_jn(id)" />
+            <column name="content_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_content_comment" references="content_jn(id)" />
             </column>
 
             <column name="comment_id" type="bigint">
                 <constraints nullable="false" foreignKeyName="fk_comments_posts" references="comments_jn(id)" />
-            </column>
-
-        </createTable>
-    </changeSet>
-
-    <changeSet id="create_sequence_post_comments_jn_id_seq" author="your_name">
-        <createSequence sequenceName="post_comments_jn_id_seq" startValue="1" incrementBy="1" />
-    </changeSet>
-
-    <changeSet id="create_table_news_comments" author="asavershin">
-        <createTable tableName="news_comments">
-
-            <column name="news_id" type="bigint">
-                <constraints nullable="false" foreignKeyName="fk_news_comments" references="news_jn(id)" />
-            </column>
-
-            <column name="comment_id" type="bigint">
-                <constraints nullable="false" foreignKeyName="fk_comments_news" references="comments_jn(id)" />
             </column>
 
         </createTable>

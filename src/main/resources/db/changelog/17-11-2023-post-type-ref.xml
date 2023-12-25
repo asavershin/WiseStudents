@@ -20,6 +20,20 @@
         </createTable>
     </changeSet>
 
+    <changeSet id="create_table_post_type_content" author="asavershin">
+        <createTable tableName="post_type_content">
+
+            <column name="content_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_content_post_type" references="content_jn(id)" />
+            </column>
+
+            <column name="post_type_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_post_type_content" references="post_type_ref(id)" />
+            </column>
+
+        </createTable>
+    </changeSet>
+
     <changeSet id="Insert data into post_type_ref" author="asaversin">
         <insert tableName="post_type_ref">
             <column name="name" value="Контрольная работа"/>

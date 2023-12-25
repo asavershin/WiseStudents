@@ -23,29 +23,15 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="create_table_files_posts" author="asavershin">
-        <createTable tableName="files_posts">
+    <changeSet id="create_table_files_content" author="asavershin">
+        <createTable tableName="files_content">
 
-            <column name="post_id" type="bigint">
-                <constraints nullable="false" foreignKeyName="fk_files_posts_post" references="posts_jn(id)" />
+            <column name="content_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_files_content" references="content_jn(id)" />
             </column>
 
             <column name="file_id" type="bigint">
                 <constraints nullable="false" foreignKeyName="fk_files_posts_file" references="files_jn(id)" />
-            </column>
-
-        </createTable>
-    </changeSet>
-
-    <changeSet id="create_table_files_news" author="asavershin">
-        <createTable tableName="files_news">
-
-            <column name="news_id" type="bigint">
-                <constraints nullable="false" foreignKeyName="fk_files_news" references="news_jn(id)" />
-            </column>
-
-            <column name="file_id" type="bigint">
-                <constraints nullable="false" foreignKeyName="fk_files_news_file" references="files_jn(id)" />
             </column>
 
         </createTable>

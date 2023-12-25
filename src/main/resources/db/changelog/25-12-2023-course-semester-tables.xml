@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet id="Create table course_ref" author="asavershin">
+        <preConditions onFail="WARN">
+            <not>
+                <tableExists tableName="course_ref"/>
+            </not>
+        </preConditions>
+        <createTable tableName="course_ref">
+            <column name="course_id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="course_ref_pk"/>
+            </column>
+            <column name="course_name" type="smallint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create_table_course_content" author="asavershin">
+        <createTable tableName="course_content">
+
+            <column name="content_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_content_course" references="content_jn(id)" />
+            </column>
+
+            <column name="course_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_course_content" references="course_ref(course_id)" />
+            </column>
+
+        </createTable>
+    </changeSet>
+
+    <changeSet id="Insert data into course_ref" author="asaversin">
+        <insert tableName="course_ref">
+            <column name="course_name" value="1"/>
+        </insert>
+
+        <insert tableName="course_ref">
+            <column name="course_name" value="2"/>
+        </insert>
+
+        <insert tableName="course_ref">
+            <column name="course_name" value="3"/>
+        </insert>
+
+        <insert tableName="course_ref">
+            <column name="course_name" value="4"/>
+        </insert>
+
+        <insert tableName="course_ref">
+            <column name="course_name" value="5"/>
+        </insert>
+
+        <insert tableName="course_ref">
+            <column name="course_name" value="6"/>
+        </insert>
+    </changeSet>
+
+
+</databaseChangeLog>

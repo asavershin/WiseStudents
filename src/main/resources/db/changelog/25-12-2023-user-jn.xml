@@ -4,23 +4,23 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
-    <changeSet id="Create table users_jn" author="asavershin">
+    <changeSet id="Create table user_jn" author="asavershin">
         <preConditions onFail="WARN">
             <not>
-                <tableExists tableName="users_jn"/>
+                <tableExists tableName="user_jn"/>
             </not>
         </preConditions>
-        <createTable tableName="users_jn">
+        <createTable tableName="user_jn">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="user_jn_pk"/>
             </column>
-            <column name="name" type="varchar(50)">
+            <column name="user_name" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
-            <column name="login" type="varchar(50)">
+            <column name="user_login" type="varchar(50)">
                 <constraints nullable="false" unique="true"/>
             </column>
-            <column name="password" type="varchar(50)">
+            <column name="user_password" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
             <column name="role" type="varchar(50)">
@@ -34,21 +34,21 @@
 
     <changeSet id="Create index on login" author="asavershin">
         <preConditions onFail="MARK_RAN">
-            <tableExists tableName="users_jn"/>
+            <tableExists tableName="user_jn"/>
             <not>
-                <indexExists tableName="users_jn" indexName="idx_users_jn_login"/>
+                <indexExists tableName="user_jn" indexName="idx_user_jn_login"/>
             </not>
         </preConditions>
-        <createIndex tableName="users_jn" indexName="idx_users_jn_login">
-            <column name="login"/>
+        <createIndex tableName="user_jn" indexName="idx_user_jn_login">
+            <column name="user_login"/>
         </createIndex>
     </changeSet>
 
     <changeSet id="Insert data into users_jn" author="asaversin">
-        <insert tableName="users_jn">
-            <column name="login" value="admin"/>
-            <column name="name" value="admin"/>
-            <column name="password" value="admin"/>
+        <insert tableName="user_jn">
+            <column name="user_login" value="admin"/>
+            <column name="user_name" value="admin"/>
+            <column name="user_password" value="admin"/>
             <column name="role" value="ROLE_ADMIN"/>
         </insert>
     </changeSet>

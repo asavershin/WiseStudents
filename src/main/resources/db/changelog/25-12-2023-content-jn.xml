@@ -3,34 +3,46 @@
                    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
-    <changeSet id="Create table comments_jn" author="asavershin">
+
+    <changeSet id="Create table content_jn" author="asavershin">
         <preConditions onFail="WARN">
             <not>
-                <tableExists tableName="posts_comments_jn"/>
+                <tableExists tableName="content_jn"/>
             </not>
         </preConditions>
-        <createTable tableName="comments_jn">
+        <createTable tableName="content_jn">
+
             <column name="id" type="bigint" autoIncrement="true">
-                <constraints primaryKey="true" primaryKeyName="comment_pk"/>
+                <constraints primaryKey="true" primaryKeyName="content_jn_pk"/>
             </column>
-            <column name="is_anonymous" type="boolean" defaultValue="false">
+
+            <column name="content_name" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
-            <column name="text" type="text">
+
+            <column name="content_text" type="text">
                 <constraints nullable="false"/>
             </column>
+
             <column name="user_id" type="bigint">
                 <constraints
-                        foreignKeyName="fk_comment_user"
+                        foreignKeyName="fk_content_user"
                         references="user_jn(id)"
                         nullable="false"/>
             </column>
-            <column name="parent_id" type="bigint">
-                <constraints
-                        foreignKeyName="fk_comment_parent"
-                        references="comments_jn(id)"
-                        nullable="true"/>
-            </column>
+
         </createTable>
     </changeSet>
+
+    <changeSet id="Create user_id index for content" author="asavershin">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists tableName="content_jn" indexName="idx_content_jn_user_id"/>
+            </not>
+        </preConditions>
+        <createIndex indexName="idx_content_jn_user_id" tableName="content_jn" unique="false">
+            <column name="user_id"/>
+        </createIndex>
+    </changeSet>
+
 </databaseChangeLog>
