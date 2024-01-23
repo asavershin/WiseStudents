@@ -3,14 +3,14 @@
                    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
-    <changeSet id="Create table comments_jn" author="asavershin">
+    <changeSet id="Create table comment_jn" author="asavershin">
         <preConditions onFail="WARN">
             <not>
-                <tableExists tableName="posts_comments_jn"/>
+                <tableExists tableName="comment_jn"/>
             </not>
         </preConditions>
-        <createTable tableName="comments_jn">
-            <column name="id" type="bigint" autoIncrement="true">
+        <createTable tableName="comment_jn">
+            <column name="comment_id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" primaryKeyName="comment_pk"/>
             </column>
             <column name="is_anonymous" type="boolean" defaultValue="false">
@@ -22,13 +22,13 @@
             <column name="user_id" type="bigint">
                 <constraints
                         foreignKeyName="fk_comment_user"
-                        references="user_jn(id)"
+                        references="user_jn(user_id)"
                         nullable="false"/>
             </column>
             <column name="parent_id" type="bigint">
                 <constraints
                         foreignKeyName="fk_comment_parent"
-                        references="comments_jn(id)"
+                        references="comment_jn(comment_id)"
                         nullable="true"/>
             </column>
         </createTable>

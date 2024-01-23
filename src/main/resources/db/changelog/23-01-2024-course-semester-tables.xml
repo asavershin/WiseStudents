@@ -24,7 +24,7 @@
         <createTable tableName="course_content">
 
             <column name="content_id" type="bigint">
-                <constraints nullable="false" foreignKeyName="fk_content_course" references="content_jn(id)" />
+                <constraints nullable="false" foreignKeyName="fk_content_course" references="content_jn(content_id)" />
             </column>
 
             <column name="course_id" type="bigint">

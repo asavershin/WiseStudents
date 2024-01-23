@@ -11,7 +11,7 @@
             </not>
         </preConditions>
         <createTable tableName="user_jn">
-            <column name="id" type="bigint" autoIncrement="true">
+            <column name="user_id" type="bigint" autoIncrement="true">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="user_jn_pk"/>
             </column>
             <column name="user_name" type="varchar(50)">
@@ -44,7 +44,7 @@
         </createIndex>
     </changeSet>
 
-    <changeSet id="Insert data into users_jn" author="asaversin">
+    <changeSet id="Insert data into user_jn" author="asaversin">
         <insert tableName="user_jn">
             <column name="user_login" value="admin"/>
             <column name="user_name" value="admin"/>

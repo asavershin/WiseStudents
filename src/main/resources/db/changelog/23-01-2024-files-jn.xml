@@ -4,15 +4,15 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
-    <changeSet id="Create table files_jn" author="asavershin">
+    <changeSet id="Create table file_jn" author="asavershin">
         <preConditions onFail="WARN">
             <not>
-                <tableExists tableName="files_jn"/>
+                <tableExists tableName="file_jn"/>
             </not>
         </preConditions>
-        <createTable tableName="files_jn">
+        <createTable tableName="file_jn">
 
-            <column name="id" type="bigint" autoIncrement="true">
+            <column name="file_id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" primaryKeyName="files_pk"/>
             </column>
 
@@ -27,11 +27,11 @@
         <createTable tableName="files_content">
 
             <column name="content_id" type="bigint">
-                <constraints nullable="false" foreignKeyName="fk_files_content" references="content_jn(id)" />
+                <constraints nullable="false" foreignKeyName="fk_files_content" references="content_jn(content_id)" />
             </column>
 
             <column name="file_id" type="bigint">
-                <constraints nullable="false" foreignKeyName="fk_files_posts_file" references="files_jn(id)" />
+                <constraints nullable="false" foreignKeyName="fk_files_posts_file" references="file_jn(file_id)" />
             </column>
 
         </createTable>
@@ -41,11 +41,11 @@
         <createTable tableName="files_comments">
 
             <column name="comment_id" type="bigint">
-                <constraints nullable="false" foreignKeyName="fk_files_posts_comment" references="comments_jn(id)" />
+                <constraints nullable="false" foreignKeyName="fk_files_posts_comment" references="comment_jn(comment_id)" />
             </column>
 
             <column name="file_id" type="bigint">
-                <constraints nullable="false" foreignKeyName="fk_files_posts_file" references="files_jn(id)" />
+                <constraints nullable="false" foreignKeyName="fk_files_posts_file" references="file_jn(file_id)" />
             </column>
 
         </createTable>

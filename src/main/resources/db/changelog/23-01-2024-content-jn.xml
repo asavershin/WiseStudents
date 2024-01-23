@@ -12,7 +12,7 @@
         </preConditions>
         <createTable tableName="content_jn">
 
-            <column name="id" type="bigint" autoIncrement="true">
+            <column name="content_id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" primaryKeyName="content_jn_pk"/>
             </column>
 
@@ -27,7 +27,7 @@
             <column name="user_id" type="bigint">
                 <constraints
                         foreignKeyName="fk_content_user"
-                        references="user_jn(id)"
+                        references="user_jn(user_id)"
                         nullable="false"/>
             </column>
 

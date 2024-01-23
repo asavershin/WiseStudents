@@ -11,7 +11,7 @@
             </not>
         </preConditions>
         <createTable tableName="subject_ref">
-            <column name="id" type="bigint" autoIncrement="true">
+            <column name="subject_id" type="bigint" autoIncrement="true">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="subject_ref_pk"/>
             </column>
             <column name="name" type="varchar(50)">
@@ -24,11 +24,11 @@
         <createTable tableName="subject_content">
 
             <column name="content_id" type="bigint">
-                <constraints nullable="false" foreignKeyName="fk_content_subject" references="content_jn(id)" />
+                <constraints nullable="false" foreignKeyName="fk_content_subject" references="content_jn(content_id)" />
             </column>
 
             <column name="subject_id" type="bigint">
-                <constraints nullable="false" foreignKeyName="fk_subject_content" references="subject_ref(id)" />
+                <constraints nullable="false" foreignKeyName="fk_subject_content" references="subject_ref(subject_id)" />
             </column>
 
         </createTable>

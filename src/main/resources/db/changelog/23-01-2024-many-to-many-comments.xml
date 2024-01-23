@@ -9,11 +9,11 @@
         <createTable tableName="content_comments">
 
             <column name="content_id" type="bigint">
-                <constraints nullable="false" foreignKeyName="fk_content_comment" references="content_jn(id)" />
+                <constraints nullable="false" foreignKeyName="fk_content_comment" references="content_jn(content_id)" />
             </column>
 
             <column name="comment_id" type="bigint">
-                <constraints nullable="false" foreignKeyName="fk_comments_posts" references="comments_jn(id)" />
+                <constraints nullable="false" foreignKeyName="fk_comments_posts" references="comment_jn(comment_id)" />
             </column>
 
         </createTable>

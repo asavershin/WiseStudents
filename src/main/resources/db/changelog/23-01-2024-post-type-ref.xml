@@ -11,7 +11,7 @@
             </not>
         </preConditions>
         <createTable tableName="post_type_ref">
-            <column name="id" type="bigint" autoIncrement="true">
+            <column name="post_type_id" type="bigint" autoIncrement="true">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="post_type_ref_pk"/>
             </column>
             <column name="name" type="varchar(50)">
@@ -24,11 +24,11 @@
         <createTable tableName="post_type_content">
 
             <column name="content_id" type="bigint">
-                <constraints nullable="false" foreignKeyName="fk_content_post_type" references="content_jn(id)" />
+                <constraints nullable="false" foreignKeyName="fk_content_post_type" references="content_jn(content_id)" />
             </column>
 
             <column name="post_type_id" type="bigint">
-                <constraints nullable="false" foreignKeyName="fk_post_type_content" references="post_type_ref(id)" />
+                <constraints nullable="false" foreignKeyName="fk_post_type_content" references="post_type_ref(post_type_id)" />
             </column>
 
         </createTable>
